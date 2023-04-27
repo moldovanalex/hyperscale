@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-hyperscale-dev-162636-authRole",
+      "UnauthRoleArn": "arn:aws:iam::187314216047:role/amplify-hyperscale-dev-162636-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::187314216047:role/amplify-hyperscale-dev-162636-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-hyperscale-dev-162636-deployment",
+      "UnauthRoleName": "amplify-hyperscale-dev-162636-unauthRole",
+      "StackName": "amplify-hyperscale-dev-162636",
+      "StackId": "arn:aws:cloudformation:eu-west-2:187314216047:stack/amplify-hyperscale-dev-162636/23a14b80-e4ff-11ed-9363-06ecb4914c00",
+      "AmplifyAppId": "d8ewuncdvc4uh"
+    }
+  }
+}
