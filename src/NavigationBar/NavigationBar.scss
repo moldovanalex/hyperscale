@@ -4,6 +4,11 @@
   align-items: center;
   padding: 0.5rem 15rem;
 
+  a {
+    outline: none;
+    text-decoration: none;
+  }
+
   .logo-and-brand-name-wrapper {
     display: flex;
     align-items: center;
@@ -16,14 +21,19 @@
     height: 3rem;
   }
 
-  .brand {
+  .sign-out-container {
+    cursor: pointer;
+  }
+
+  .brand,
+  span {
     font-family: "Space Grotesk";
     font-size: 1rem;
     color: white;
     font-weight: bold;
   }
 
-  .navigation-bar-actions {
+  .navigation-bar-actions .public-actions {
     display: flex;
     flex-direction: row;
     gap: 3rem;

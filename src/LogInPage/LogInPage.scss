@@ -1,0 +1,31 @@
+.log-in-page {
+  display: flex;
+  justify-content: center;
+  height: 80vh;
+
+  .authenticator-wrapper {
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  div[data-amplify-authenticator] {
+    z-index: 10;
+    position: relative;
+  }
+
+  .log-in-form-glow {
+    position: absolute;
+    background: conic-gradient(
+      from 180deg at 50% 50%,
+      #2a8af6 0deg,
+      #05b3da 180deg,
+      #00dfe5 1turn
+    );
+    filter: blur(80px);
+    width: 500px;
+    height: 500px;
+    opacity: 0.4;
+    align-self: center;
+  }
+}

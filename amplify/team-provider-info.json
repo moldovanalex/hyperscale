@@ -10,6 +10,11 @@
       "StackName": "amplify-hyperscale-dev-162636",
       "StackId": "arn:aws:cloudformation:eu-west-2:187314216047:stack/amplify-hyperscale-dev-162636/23a14b80-e4ff-11ed-9363-06ecb4914c00",
       "AmplifyAppId": "d8ewuncdvc4uh"
+    },
+    "categories": {
+      "auth": {
+        "hyperscale3ce15cdc": {}
+      }
     }
   }
 }

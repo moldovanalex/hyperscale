@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { Button, Typography } from "antd";
 
@@ -6,7 +7,7 @@ import "./LandingPage.scss";
 
 const mainLogo = require("./mainLogo.png");
 
-export default function LandingPage() {
+export default function LandingPage({ user }) {
   return (
     <div className="landing-page">
       <div className="landing-page-content">
@@ -28,9 +29,14 @@ export default function LandingPage() {
             images using Amazon Rekognition and Amazon Textract.
           </Typography.Text>
           <div className="main-description-actions">
-            <button color="white" className="get-started-button">
-              Get Started
-            </button>
+            <Link to={user ? "/document-processing" : "/log-in"}>
+              <div className="get-started-button-wrapper">
+                <button color="white" className="get-started-button">
+                  Get Started
+                </button>
+                <div className="get-started-button-glow"></div>
+              </div>
+            </Link>
             <button color="black" className="github-button">
               GitHub
             </button>
