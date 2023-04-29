@@ -1,0 +1,14 @@
+{
+  "resourceName": "hyperscaleS3",
+  "policyUUID": "210042c1",
+  "bucketName": "hyperscale-storage",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

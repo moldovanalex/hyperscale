@@ -26,5 +26,89 @@
         ]
       }
     }
+  },
+  "storage": {
+    "hyperscaleS3": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
+    }
+  },
+  "function": {
+    "textract": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "hyperscale3ce15cdc",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "storage",
+          "resourceName": "hyperscaleS3",
+          "attributes": [
+            "BucketName"
+          ]
+        }
+      ]
+    },
+    "s3trigger": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "hyperscale3ce15cdc",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "storage",
+          "resourceName": "hyperscaleS3",
+          "attributes": [
+            "BucketName"
+          ]
+        }
+      ]
+    },
+    "sendToOpenAI": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "hyperscaleshared",
+          "attributes": [
+            "Arn"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "hyperscale3ce15cdc",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "storage",
+          "resourceName": "hyperscaleS3",
+          "attributes": [
+            "BucketName"
+          ]
+        }
+      ]
+    },
+    "hyperscaleshared": {
+      "providerPlugin": "awscloudformation",
+      "service": "LambdaLayer",
+      "build": true
+    }
   }
 }

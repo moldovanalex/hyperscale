@@ -2,7 +2,8 @@ import React from "react";
 
 import { Typography } from "antd";
 
-import { FileUploader, ThemeProvider } from "@aws-amplify/ui-react";
+import { ThemeProvider } from "@aws-amplify/ui-react";
+import { StorageManager } from "@aws-amplify/ui-react-storage";
 
 import "./DocumentProcessingPage.scss";
 
@@ -14,12 +15,13 @@ const myTheme = {
         primary: { value: "#000000" },
       },
     },
-    fonts: {
-      default: {
-        // variable: { value: "Raleway, sans-serif" },
-        // static: { value: "Raleway, sans-serif" },
-      },
-    },
+  },
+};
+
+const overrides = {
+  uploadSuccessfulText: "Upload successful.",
+  getUploadingText(percentage) {
+    return `Uploading ${percentage}%`;
   },
 };
 
@@ -40,10 +42,13 @@ export default function DocumentProcessingPage() {
       <div className="wrapper">
         <div className="file-uploader-card">
           <ThemeProvider theme={myTheme}>
-            <FileUploader
+            <StorageManager
               acceptedFileTypes={[".pdf"]}
               accessLevel="public"
-              variation="drop"
+              maxFileCount={100}
+              path="user-documents/"
+              onUploadError={(error) => console.log(error)}
+              displayText={overrides}
             />
           </ThemeProvider>
         </div>

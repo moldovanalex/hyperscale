@@ -89,16 +89,16 @@
     }
   }
 
-  .amplify-text.amplify-fileuploader__dropzone__text {
+  .amplify-text.amplify-storagemanager__dropzone__text {
     color: black;
     margin-top: 0.5rem;
   }
 
-  .amplify-icon.amplify-fileuploader__dropzone__icon {
+  .amplify-icon.amplify-storagemanager__dropzone__icon {
     color: black;
   }
 
-  .amplify-fileuploader__dropzone {
+  .amplify-storagemanager__dropzone {
     padding: 1.5rem 2rem;
 
     svg {
@@ -106,7 +106,7 @@
     }
   }
 
-  .amplify-fileuploader__previewer__body {
+  .amplify-storagemanager__previewer__body {
     overflow-y: scroll;
     max-height: 360px;
   }
@@ -116,12 +116,12 @@
     color: white;
   }
 
-  .amplify-fileuploader__file__size {
+  .amplify-storagemanager__file__size {
     min-width: 5rem;
   }
 }
 
-[data-amplify-theme] .amplify-fileuploader__dropzone {
+[data-amplify-theme] .amplify-storagemanager__dropzone {
   --amplify-components-icon-height: 2rem !important;
   --amplify-components-icon-width: 2rem !important;
 }
@@ -130,25 +130,36 @@ svg {
   border: none;
 }
 
-.amplify-fileuploader__previewer__body::-webkit-scrollbar {
-  width: 12px; /* Adjust the width of the scrollbar */
+.amplify-storagemanager__previewer::-webkit-scrollbar {
+  width: 12px;
 }
 
-/* Style the scrollbar track (background) */
-.amplify-fileuploader__previewer__body::-webkit-scrollbar-track {
-  background-color: #f0f0f0; /* Set the background color of the track */
-  border-radius: 6px; /* Add rounded corners to the track */
+.amplify-storagemanager__previewer::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
+  border-radius: 6px;
 }
 
-/* Style the scrollbar thumb (the handle) */
-.amplify-fileuploader__previewer__body::-webkit-scrollbar-thumb {
-  background-color: #888; /* Set the background color of the thumb */
-  border-radius: 6px; /* Add rounded corners to the thumb */
-  border: 2px solid transparent; /* Add a transparent border around the thumb */
-  background-clip: content-box; /* Clip the background color to the content box of the thumb */
+.amplify-storagemanager__previewer::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background-clip: content-box;
 }
 
-/* Add a hover effect for the scrollbar thumb */
-.amplify-fileuploader__previewer__body::-webkit-scrollbar-thumb:hover {
-  background-color: #555; /* Darken the background color of the thumb on hover */
+.amplify-storagemanager__previewer::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+.amplify-storagemanager__file__status {
+  font-size: 0.8rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .amplify-icon,
+  .amplify-icon svg {
+    width: 1rem;
+    height: 1rem;
+  }
 }

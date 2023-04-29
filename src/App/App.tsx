@@ -16,6 +16,9 @@ import DocumentProcessingPage from "../DocumentProcessingPage/DocumentProcessing
 import "./App.scss";
 
 Amplify.configure(awsExports);
+Amplify.configure({
+  region: "eu-west-2",
+});
 
 function App(props) {
   const { user } = useAuthenticator((context) => [context.user]);

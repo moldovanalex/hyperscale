@@ -14,6 +14,27 @@
     "categories": {
       "auth": {
         "hyperscale3ce15cdc": {}
+      },
+      "storage": {
+        "hyperscaleS3": {}
+      },
+      "function": {
+        "textract": {
+          "deploymentBucketName": "amplify-hyperscale-dev-162636-deployment",
+          "s3Key": "amplify-builds/textract-423945356f6a6168462f-build.zip"
+        },
+        "s3trigger": {
+          "deploymentBucketName": "amplify-hyperscale-dev-162636-deployment",
+          "s3Key": "amplify-builds/s3trigger-513341697869486b3541-build.zip"
+        },
+        "sendToOpenAI": {
+          "deploymentBucketName": "amplify-hyperscale-dev-162636-deployment",
+          "s3Key": "amplify-builds/sendToOpenAI-35716e68653259684852-build.zip"
+        },
+        "hyperscaleshared": {
+          "deploymentBucketName": "amplify-hyperscale-dev-162636-deployment",
+          "s3Key": "amplify-builds/hyperscaleshared-LambdaLayerVersion19ac58e8-build.zip"
+        }
       }
     }
   }
