@@ -1,17 +1,103 @@
 .log-in-page {
   display: flex;
   justify-content: center;
+  align-items: center;
   height: 80vh;
 
-  .authenticator-wrapper {
-    display: flex;
-    justify-content: center;
-    position: relative;
+  h1,
+  span {
+    color: black;
+    font-family: sans-serif;
   }
 
-  div[data-amplify-authenticator] {
-    z-index: 10;
+  span {
+    font-weight: bold;
+  }
+
+  button {
+    min-width: 120px;
+    padding: 0.5rem 0rem;
+    align-self: center;
+    text-align: center;
+    background: white;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    font-stretch: 100%;
+    font-family: "Space Grotesk";
+    cursor: pointer;
+  }
+
+  .on-submit-button {
+    margin-top: 3rem;
+  }
+
+  .verification-code-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .verification-code-button,
+  .verification-code-input {
+    width: 45%;
+  }
+
+  .verification-code-button {
+    padding: 3px 0px;
+  }
+
+  .on-submit-button.reset-password {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .back-to-sign-in-button {
+    display: inline-block;
+    color: rgb(111, 201, 253);
+    cursor: pointer;
+  }
+
+  .ant-input-prefix {
+    margin-right: 0.5rem;
+  }
+
+  svg {
+    opacity: 0.5;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: sans-serif;
+  }
+
+  .log-in-card-header {
+    margin-bottom: 2rem;
+  }
+
+  .log-in-card {
+    width: 400px;
     position: relative;
+    background: white;
+    border: 2px solid white;
+    border-radius: 12px;
+    padding: 2rem;
+    z-index: 10;
+
+    .form-item-wrapper {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-direction: column;
+    }
+  }
+
+  .reset-password-button {
+    display: inline-block;
+    cursor: pointer;
+    color: rgb(111, 201, 253);
   }
 
   .log-in-form-glow {
@@ -23,9 +109,9 @@
       #00dfe5 1turn
     );
     filter: blur(80px);
-    width: 500px;
-    height: 500px;
-    opacity: 0.4;
+    width: 450px;
+    height: 540px;
+    opacity: 0.5;
     align-self: center;
   }
 }

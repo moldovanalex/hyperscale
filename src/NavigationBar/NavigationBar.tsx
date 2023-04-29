@@ -14,6 +14,7 @@ export default function NavigationBar(props: any) {
 
   async function handleSignOut() {
     await Auth.signOut({ global: true });
+    window.location.reload();
   }
 
   return (

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 import { Amplify, Auth } from "aws-amplify";
+import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import awsExports from "../aws-exports";
 import { useAuthenticator } from "@aws-amplify/ui-react";
@@ -18,6 +19,16 @@ Amplify.configure(awsExports);
 
 function App(props) {
   const { user } = useAuthenticator((context) => [context.user]);
+  const navigate = useNavigate();
+  const [hasNavigatedToLandingPage, setHasNavigatedToLandingPage] =
+    useState(false);
+
+  useEffect(() => {
+    if (!hasNavigatedToLandingPage && !user) {
+      navigate("/landing-page", { replace: true });
+      setHasNavigatedToLandingPage(true);
+    }
+  }, []);
 
   return (
     <div className="App">
