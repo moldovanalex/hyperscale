@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Typography } from "antd";
 
 import { ThemeProvider } from "@aws-amplify/ui-react";
 import { StorageManager } from "@aws-amplify/ui-react-storage";
+
+import { API, graphqlOperation } from "aws-amplify";
+import { createDocumentProcessingRecord } from "../graphql/mutations";
 
 import "./DocumentProcessingPage.scss";
 
@@ -25,7 +28,7 @@ const overrides = {
   },
 };
 
-export default function DocumentProcessingPage() {
+export default function DocumentProcessingPage({ user }) {
   return (
     <div className="document-processing-page">
       <div className="welcome-message-container">
@@ -46,6 +49,18 @@ export default function DocumentProcessingPage() {
               acceptedFileTypes={[".pdf"]}
               accessLevel="public"
               maxFileCount={100}
+              onUploadSuccess={async ({ key }) => {
+                await API.graphql({
+                  query: createDocumentProcessingRecord,
+                  variables: {
+                    input: {
+                      author: user.attributes.email,
+                      organisation: "HYPERSCALE",
+                      s3Key: key.split("/").pop(),
+                    },
+                  },
+                });
+              }}
               path="user-documents/"
               onUploadError={(error) => console.log(error)}
               displayText={overrides}

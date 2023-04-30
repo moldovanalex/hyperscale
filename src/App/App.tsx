@@ -43,7 +43,7 @@ function App(props) {
           path="/document-processing"
           element={
             <ProtectedRoute user={user}>
-              <DocumentProcessingPage />
+              <DocumentProcessingPage user={user} />
             </ProtectedRoute>
           }
         />

@@ -1,4 +1,8 @@
 /* Amplify Params - DO NOT EDIT
+	API_HYPERSCALE_DOCUMENTPROCESSINGRECORDTABLE_ARN
+	API_HYPERSCALE_DOCUMENTPROCESSINGRECORDTABLE_NAME
+	API_HYPERSCALE_GRAPHQLAPIENDPOINTOUTPUT
+	API_HYPERSCALE_GRAPHQLAPIIDOUTPUT
 	AUTH_HYPERSCALE3CE15CDC_USERPOOLID
 	ENV
 	REGION
@@ -12,6 +16,8 @@ const configuration = new Configuration({
   apiKey: process.env.HYPERSCALE_OPENAI_SECRET_KEY,
 });
 const OpenAI = new OpenAIApi(configuration);
+const { nodeCallAppSync } = require("./helpers.js");
+const queries = require("./queries.js");
 
 const s3Client = new AWS.S3({
   apiVersion: "2006-03-01",
@@ -47,14 +53,47 @@ async function getSingleFileFromS3({ bucket, key }) {
   }
 }
 
-async function sendDataToOpenAI({ data, fileName, fileKey }) {
-  console.log("data = ", data);
+async function sendDataToOpenAI({ data, fileName, fileKey, author }) {
+  console.log("author = ", author);
+
+  return;
+
+  const messages = [
+    { role: "system", content: "You are a helpful assistant." },
+    { role: "user", content: "Generate insights about this document." },
+    { role: "user", content: data },
+  ];
+  const model = "gpt-3.5-turbo";
+
+  try {
+    const response = await OpenAI.createChatCompletion({
+      model: model,
+      messages: messages,
+      max_tokens: 1000,
+      n: 1,
+      temperature: 1,
+    });
+
+    console.log("response.data = ", JSON.stringify(response.data, null, 2));
+
+    const generatedText = response.data.choices[0].message.content;
+
+    console.log("generatedText = ", generatedText);
+  } catch (err) {
+    console.log("err.response.data = ", err.response?.data);
+  }
 }
 
 exports.handler = async (event) => {
-  console.log("OpenAI = ", OpenAI);
+  const documentProcessingRecordsResponse = await nodeCallAppSync({
+    query: queries.listDocumentProcessingRecords,
+    variables: {
+      organisation: "HYPERSCALE",
+    },
+  });
 
-  return;
+  const documentProcessingRecords =
+    documentProcessingRecordsResponse.data.listDocumentProcessingRecords.items;
 
   for (let i = 0; i < event.Records.length; i++) {
     let record = event.Records[i];
@@ -75,6 +114,9 @@ exports.handler = async (event) => {
         data,
         fileName,
         fileKey: JSON.parse(data).fileKey,
+        author: documentProcessingRecords.find(
+          (x) => x.s3Key === fileName.replace(".json", "")
+        ).author,
       });
     } catch (err) {
       console.log("err = ", err);

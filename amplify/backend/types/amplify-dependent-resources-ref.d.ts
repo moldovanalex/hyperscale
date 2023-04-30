@@ -38,5 +38,11 @@ export type AmplifyDependentResourcesAttributes = {
         "hyperscaleshared": {
             "Arn": "string"
         }
+    },
+    "api": {
+        "hyperscale": {
+            "GraphQLAPIIdOutput": "string",
+            "GraphQLAPIEndpointOutput": "string"
+        }
     }
 }

@@ -1,0 +1,19 @@
+type DocumentProcessingRecord
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        ownerField: "organisation"
+        identityClaim: "organisation"
+        operations: [create, update, delete, read]
+      }
+      { allow: private, operations: [create, update, delete, read] }
+      { allow: private, provider: iam }
+    ]
+  ) {
+  id: ID!
+  author: String!
+  organisation: String!
+  s3Key: String!
+}

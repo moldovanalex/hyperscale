@@ -14,6 +14,19 @@
         "read",
         "update",
         "delete"
+      ],
+      "DocumentProcessingRecord:@model(appsync)": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    },
+    "api": {
+      "hyperscale": [
+        "Query",
+        "Mutation",
+        "Subscription"
       ]
     }
   },

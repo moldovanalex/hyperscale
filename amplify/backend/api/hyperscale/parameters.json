@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "hyperscale",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authhyperscale3ce15cdc",
+      "Outputs.UserPoolId"
+    ]
+  }
+}
