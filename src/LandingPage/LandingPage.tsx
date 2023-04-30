@@ -25,8 +25,8 @@ export default function LandingPage({ user }) {
             and images
           </h1>
           <Typography.Text className="secondary-description">
-            Hyperscale is a tool that analyzes and processes documents and
-            images using Amazon Rekognition and Amazon Textract.
+            Hyperscale is a tool that analyzes and processes documents using
+            Amazon Textract and OpenAI's GPT 3.5 model.
           </Typography.Text>
           <div className="main-description-actions">
             <Link to={user ? "/document-processing" : "/log-in"}>

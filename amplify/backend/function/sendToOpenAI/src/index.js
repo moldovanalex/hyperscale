@@ -24,6 +24,8 @@ const s3Client = new AWS.S3({
   region: process.env.AWS_REGION,
 });
 const https = require("https");
+const SES = new AWS.SES({ apiVersion: "2010-12-01", region: "eu-west-1" });
+const { getHtmlEmailContent } = require("./email.js");
 
 async function getSingleFileFromS3({ bucket, key }) {
   let downloadParams;
@@ -53,19 +55,23 @@ async function getSingleFileFromS3({ bucket, key }) {
   }
 }
 
-async function sendDataToOpenAI({ data, fileName, fileKey, author }) {
+async function sendDataToOpenAI({ data, fileName, author }) {
+  console.log("data = ", data);
+  console.log("fileName = ", fileName);
   console.log("author = ", author);
 
-  return;
+  const content = data.processedPages.map((page) => page.content).join(" ");
 
   const messages = [
     { role: "system", content: "You are a helpful assistant." },
     { role: "user", content: "Generate insights about this document." },
-    { role: "user", content: data },
+    { role: "user", content: content },
   ];
   const model = "gpt-3.5-turbo";
 
   try {
+    console.log("messages = ", messages);
+
     const response = await OpenAI.createChatCompletion({
       model: model,
       messages: messages,
@@ -74,52 +80,81 @@ async function sendDataToOpenAI({ data, fileName, fileKey, author }) {
       temperature: 1,
     });
 
-    console.log("response.data = ", JSON.stringify(response.data, null, 2));
-
     const generatedText = response.data.choices[0].message.content;
 
     console.log("generatedText = ", generatedText);
+
+    const emailParams = {
+      Source: `"Hyperscale" <alexmdv1999@gmail.com>`,
+      Destination: {
+        ToAddresses: [author],
+      },
+      Message: {
+        Subject: {
+          Data: "Document Analysis",
+          Charset: "UTF-8",
+        },
+        Body: {
+          Html: {
+            Data: getHtmlEmailContent(generatedText, fileName),
+            Charset: "UTF-8",
+          },
+        },
+      },
+    };
+
+    try {
+      await SES.sendEmail(emailParams).promise();
+    } catch (err) {
+      console.log("err = ", err);
+    }
   } catch (err) {
+    console.log("err = ", err);
     console.log("err.response.data = ", err.response?.data);
   }
 }
 
 exports.handler = async (event) => {
-  const documentProcessingRecordsResponse = await nodeCallAppSync({
-    query: queries.listDocumentProcessingRecords,
-    variables: {
-      organisation: "HYPERSCALE",
-    },
-  });
+  try {
+    const documentProcessingRecordsResponse = await nodeCallAppSync({
+      query: queries.listDocumentProcessingRecords,
+      variables: {
+        organisation: "HYPERSCALE",
+      },
+    });
 
-  const documentProcessingRecords =
-    documentProcessingRecordsResponse.data.listDocumentProcessingRecords.items;
+    const documentProcessingRecords =
+      documentProcessingRecordsResponse.data.listDocumentProcessingRecords
+        .items;
 
-  for (let i = 0; i < event.Records.length; i++) {
-    let record = event.Records[i];
-    let objectKey = decodeURIComponent(
-      record.s3.object.key.replace(/\+/g, " ")
-    );
+    for (let i = 0; i < event.Records.length; i++) {
+      let record = event.Records[i];
+      let objectKey = decodeURIComponent(
+        record.s3.object.key.replace(/\+/g, " ")
+      );
 
-    try {
-      const rawData = await getSingleFileFromS3({
-        bucket: process.env.STORAGE_HYPERSCALES3_BUCKETNAME,
-        key: objectKey,
-      });
+      try {
+        const rawData = await getSingleFileFromS3({
+          bucket: process.env.STORAGE_HYPERSCALES3_BUCKETNAME,
+          key: objectKey,
+        });
 
-      const fileName = objectKey.split("/").slice(-1)[0];
-      const data = rawData.toString("utf8");
+        const fileName = objectKey.split("/").slice(-1)[0];
+        const data = JSON.parse(rawData.toString("utf8"));
 
-      await sendDataToOpenAI({
-        data,
-        fileName,
-        fileKey: JSON.parse(data).fileKey,
-        author: documentProcessingRecords.find(
-          (x) => x.s3Key === fileName.replace(".json", "")
-        ).author,
-      });
-    } catch (err) {
-      console.log("err = ", err);
+        await sendDataToOpenAI({
+          data,
+          fileName,
+          author: documentProcessingRecords.find(
+            (x) => x.s3Key === fileName.replace(".json", "")
+          ).author,
+        });
+      } catch (err) {
+        console.log("err = ", err);
+      }
     }
+  } catch (err) {
+    console.log("err = ", err);
+    console.log("err.response = ", err.response);
   }
 };

@@ -29,11 +29,19 @@
         },
         "sendToOpenAI": {
           "deploymentBucketName": "amplify-hyperscale-dev-162636-deployment",
-          "s3Key": "amplify-builds/sendToOpenAI-32577444742b4e617348-build.zip"
+          "s3Key": "amplify-builds/sendToOpenAI-6250686e6f4f53715863-build.zip"
         },
         "hyperscaleshared": {
           "deploymentBucketName": "amplify-hyperscale-dev-162636-deployment",
           "s3Key": "amplify-builds/hyperscaleshared-LambdaLayerVersion19ac58e8-build.zip"
+        },
+        "verifyEmail": {
+          "deploymentBucketName": "amplify-hyperscale-dev-162636-deployment",
+          "s3Key": "amplify-builds/verifyEmail-6867394b4e6b6176694d-build.zip"
+        },
+        "cognitoVerifyEmail": {
+          "deploymentBucketName": "amplify-hyperscale-dev-162636-deployment",
+          "s3Key": "amplify-builds/cognitoVerifyEmail-775651452b7a62453479-build.zip"
         }
       },
       "api": {

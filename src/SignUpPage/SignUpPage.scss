@@ -1,0 +1,85 @@
+.sign-up-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+
+  h1,
+  span {
+    color: black;
+    font-family: sans-serif;
+  }
+
+  span {
+    font-weight: bold;
+  }
+
+  button {
+    min-width: 120px;
+    padding: 0.5rem 0rem;
+    align-self: center;
+    text-align: center;
+    background: white;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    font-stretch: 100%;
+    font-family: "Space Grotesk";
+    cursor: pointer;
+  }
+
+  .on-submit-button {
+    margin-top: 3rem;
+  }
+
+  .ant-input-prefix {
+    margin-right: 0.5rem;
+  }
+
+  svg {
+    opacity: 0.5;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: sans-serif;
+  }
+
+  .sign-up-card-header {
+    margin-bottom: 2rem;
+  }
+
+  .sign-up-card {
+    width: 400px;
+    position: relative;
+    background: white;
+    border: 2px solid white;
+    border-radius: 12px;
+    padding: 2rem;
+    z-index: 10;
+
+    .form-item-wrapper {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-direction: column;
+    }
+  }
+
+  .sign-up-form-glow {
+    position: absolute;
+    background: conic-gradient(
+      from 180deg at 50% 50%,
+      #2a8af6 0deg,
+      #05b3da 180deg,
+      #00dfe5 1turn
+    );
+    filter: blur(80px);
+    width: 450px;
+    height: 540px;
+    opacity: 0.5;
+    align-self: center;
+  }
+}

@@ -39,7 +39,9 @@ export default function NavigationBar(props: any) {
               <Link to="/log-in">
                 <Typography.Text>Log in</Typography.Text>
               </Link>
-              <Typography.Text>Sign up</Typography.Text>
+              <Link to="/sign-up">
+                <Typography.Text>Sign up</Typography.Text>
+              </Link>
               <Typography.Text>Contact</Typography.Text>
             </div>
           )}

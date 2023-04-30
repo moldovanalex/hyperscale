@@ -37,6 +37,18 @@ export type AmplifyDependentResourcesAttributes = {
         },
         "hyperscaleshared": {
             "Arn": "string"
+        },
+        "verifyEmail": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        },
+        "cognitoVerifyEmail": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
         }
     },
     "api": {

@@ -11,6 +11,7 @@ import { useAuthenticator } from "@aws-amplify/ui-react";
 import LandingPage from "../LandingPage/LandingPage";
 import NavigationBar from "../NavigationBar/NavigationBar";
 import LogInPage from "../LogInPage/LogInPage";
+import SignUpPage from "../SignUpPage/SignUpPage";
 import DocumentProcessingPage from "../DocumentProcessingPage/DocumentProcessingPage";
 
 import "./App.scss";
@@ -39,6 +40,7 @@ function App(props) {
       <Routes>
         <Route path="/landing-page" element={<LandingPage user={user} />} />
         <Route path="/log-in" element={<LogInPage user={user} />} />
+        <Route path="/sign-up" element={<SignUpPage user={user} />} />
         <Route
           path="/document-processing"
           element={

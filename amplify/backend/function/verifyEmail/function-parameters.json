@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "auth": {
+      "hyperscale3ce15cdc": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    },
+    "api": {
+      "hyperscale": [
+        "Query",
+        "Mutation",
+        "Subscription"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

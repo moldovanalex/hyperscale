@@ -20,14 +20,6 @@
       "Type": "String",
       "Default": "authhyperscale3ce15cdcUserPoolId"
     },
-    "storagehyperscaleS3BucketName": {
-      "Type": "String",
-      "Default": "storagehyperscaleS3BucketName"
-    },
-    "functionhyperscalesharedArn": {
-      "Type": "String",
-      "Default": "functionhyperscalesharedArn"
-    },
     "apihyperscaleGraphQLAPIIdOutput": {
       "Type": "String",
       "Default": "apihyperscaleGraphQLAPIIdOutput"
@@ -67,12 +59,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "sendToOpenAI",
+            "verifyEmail",
             {
               "Fn::Join": [
                 "",
                 [
-                  "sendToOpenAI",
+                  "verifyEmail",
                   "-",
                   {
                     "Ref": "env"
@@ -93,40 +85,11 @@
             "AUTH_HYPERSCALE3CE15CDC_USERPOOLID": {
               "Ref": "authhyperscale3ce15cdcUserPoolId"
             },
-            "STORAGE_HYPERSCALES3_BUCKETNAME": {
-              "Ref": "storagehyperscaleS3BucketName"
-            },
             "API_HYPERSCALE_GRAPHQLAPIIDOUTPUT": {
               "Ref": "apihyperscaleGraphQLAPIIdOutput"
             },
             "API_HYPERSCALE_GRAPHQLAPIENDPOINTOUTPUT": {
               "Ref": "apihyperscaleGraphQLAPIEndpointOutput"
-            },
-            "API_HYPERSCALE_DOCUMENTPROCESSINGRECORDTABLE_NAME": {
-              "Fn::ImportValue": {
-                "Fn::Sub": "${apihyperscaleGraphQLAPIIdOutput}:GetAtt:DocumentProcessingRecordTable:Name"
-              }
-            },
-            "API_HYPERSCALE_DOCUMENTPROCESSINGRECORDTABLE_ARN": {
-              "Fn::Join": [
-                "",
-                [
-                  "arn:aws:dynamodb:",
-                  {
-                    "Ref": "AWS::Region"
-                  },
-                  ":",
-                  {
-                    "Ref": "AWS::AccountId"
-                  },
-                  ":table/",
-                  {
-                    "Fn::ImportValue": {
-                      "Fn::Sub": "${apihyperscaleGraphQLAPIIdOutput}:GetAtt:DocumentProcessingRecordTable:Name"
-                    }
-                  }
-                ]
-              ]
             }
           }
         },
@@ -137,11 +100,7 @@
           ]
         },
         "Runtime": "nodejs14.x",
-        "Layers": [
-          {
-            "Ref": "functionhyperscalesharedArn"
-          }
-        ],
+        "Layers": [],
         "Timeout": 25
       }
     },
@@ -151,12 +110,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "hyperscaleLambdaRole219d6385",
+            "hyperscaleLambdaRoleab100f4c",
             {
               "Fn::Join": [
                 "",
                 [
-                  "hyperscaleLambdaRole219d6385",
+                  "hyperscaleLambdaRoleab100f4c",
                   "-",
                   {
                     "Ref": "env"
@@ -353,114 +312,6 @@
               "Effect": "Allow",
               "Action": "ses:*",
               "Resource": "*"
-            },
-            {
-              "Effect": "Allow",
-              "Action": "s3:ListBucket",
-              "Resource": [
-                {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:aws:s3:::",
-                      {
-                        "Ref": "storagehyperscaleS3BucketName"
-                      }
-                    ]
-                  ]
-                }
-              ]
-            },
-            {
-              "Effect": "Allow",
-              "Action": [
-                "s3:PutObject",
-                "s3:GetObject",
-                "s3:DeleteObject"
-              ],
-              "Resource": [
-                {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:aws:s3:::",
-                      {
-                        "Ref": "storagehyperscaleS3BucketName"
-                      },
-                      "/*"
-                    ]
-                  ]
-                }
-              ]
-            },
-            {
-              "Effect": "Allow",
-              "Action": [
-                "appsync:*"
-              ],
-              "Resource": "*"
-            },
-            {
-              "Effect": "Allow",
-              "Action": [
-                "dynamodb:*",
-                "dynamodb:Create*",
-                "dynamodb:BatchWriteItem",
-                "dynamodb:Get*",
-                "dynamodb:BatchGetItem",
-                "dynamodb:List*",
-                "dynamodb:Describe*",
-                "dynamodb:Scan",
-                "dynamodb:Query",
-                "dynamodb:Update*",
-                "dynamodb:RestoreTable*",
-                "dynamodb:Delete*"
-              ],
-              "Resource": [
-                {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:aws:dynamodb:",
-                      {
-                        "Ref": "AWS::Region"
-                      },
-                      ":",
-                      {
-                        "Ref": "AWS::AccountId"
-                      },
-                      ":table/",
-                      {
-                        "Fn::ImportValue": {
-                          "Fn::Sub": "${apihyperscaleGraphQLAPIIdOutput}:GetAtt:DocumentProcessingRecordTable:Name"
-                        }
-                      }
-                    ]
-                  ]
-                },
-                {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:aws:dynamodb:",
-                      {
-                        "Ref": "AWS::Region"
-                      },
-                      ":",
-                      {
-                        "Ref": "AWS::AccountId"
-                      },
-                      ":table/",
-                      {
-                        "Fn::ImportValue": {
-                          "Fn::Sub": "${apihyperscaleGraphQLAPIIdOutput}:GetAtt:DocumentProcessingRecordTable:Name"
-                        }
-                      },
-                      "/index/*"
-                    ]
-                  ]
-                }
-              ]
             },
             {
               "Effect": "Allow",
