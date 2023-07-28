@@ -21,7 +21,8 @@ export default function LogInPage(props) {
 
   async function sendVerificationCode() {
     if (!email) {
-      console.log("Email can't be empty");
+      message.error("Please enter your email address.", 3);
+      return;
     }
 
     try {
@@ -38,14 +39,18 @@ export default function LogInPage(props) {
       message.info("Your password has been reset successfully. Log in.", 3);
 
       setTimeout(() => {
-        setIsResettingPassword(false);
-        setEmail("");
-        setPassword("");
-        setVerificationCode("");
+        resetFields();
       }, 3000);
     } catch (err) {
       console.log(err);
     }
+  }
+
+  function resetFields() {
+    setIsResettingPassword(false);
+    setEmail("");
+    setPassword("");
+    setVerificationCode("");
   }
 
   async function onSubmit() {

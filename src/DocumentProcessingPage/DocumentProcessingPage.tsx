@@ -29,6 +29,19 @@ const overrides = {
 };
 
 export default function DocumentProcessingPage({ user }) {
+  async function onUploadSuccess({ key }) {
+    await API.graphql({
+      query: createDocumentProcessingRecord,
+      variables: {
+        input: {
+          author: user.attributes.email,
+          organisation: "HYPERSCALE",
+          s3Key: key.split("/").pop(),
+        },
+      },
+    });
+  }
+
   return (
     <div className="document-processing-page">
       <div className="welcome-message-container">
@@ -49,18 +62,7 @@ export default function DocumentProcessingPage({ user }) {
               acceptedFileTypes={[".pdf"]}
               accessLevel="public"
               maxFileCount={100}
-              onUploadSuccess={async ({ key }) => {
-                await API.graphql({
-                  query: createDocumentProcessingRecord,
-                  variables: {
-                    input: {
-                      author: user.attributes.email,
-                      organisation: "HYPERSCALE",
-                      s3Key: key.split("/").pop(),
-                    },
-                  },
-                });
-              }}
+              onUploadSuccess={onUploadSuccess}
               path="user-documents/"
               onUploadError={(error) => console.log(error)}
               displayText={overrides}

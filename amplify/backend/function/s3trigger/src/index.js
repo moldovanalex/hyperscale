@@ -11,8 +11,6 @@ async function startTextExtraction(objectKey) {
         Name: objectKey,
       },
     },
-    // ClientRequestToken: "STRING_VALUE",
-    // JobTag: "STRING_VALUE",
     NotificationChannel: {
       RoleArn: "arn:aws:iam::187314216047:role/TextractPublishToSNSRole",
       SNSTopicArn:
@@ -38,8 +36,6 @@ async function startTextExtraction(objectKey) {
 }
 
 exports.handler = async (event) => {
-  console.log("event = ", JSON.stringify(event, null, 2));
-
   for (let i = 0; i < event.Records.length; i++) {
     let record = event.Records[i];
     let objectKey = decodeURIComponent(
@@ -55,8 +51,6 @@ exports.handler = async (event) => {
         if (!objectKey.endsWith(".pdf")) {
           throw new Error("Not a PDF");
         }
-
-        console.log("objectKey = ", objectKey);
 
         await startTextExtraction(objectKey);
       }

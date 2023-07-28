@@ -1,5 +1,6 @@
 function getHtmlEmailContent(message, fileName) {
   const formattedMessage = convertMessageToList(message);
+  const formattedFileName = fileName.replace(".json", "");
 
   return `<html lang="en">
     <head>
@@ -52,10 +53,7 @@ function getHtmlEmailContent(message, fileName) {
                 HYPERSCALE
             </div>
             <div class="content">
-                Here are the insights that we've generated from your file <b>${fileName.replace(
-                  ".json",
-                  ""
-                )}</b>:
+                Here are the insights that we've generated from your file <b>${formattedFileName}</b>:
                 ${formattedMessage}
             </div>
         </div>

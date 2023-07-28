@@ -12,7 +12,7 @@ Amplify Params - DO NOT EDIT */
 const { Configuration, OpenAIApi } = require("openai");
 const AWS = require("aws-sdk");
 const configuration = new Configuration({
-  organization: "org-GeDBSOU0Lv8UXxiKTVWA1gfm",
+  organization: process.env.HYPERSCALE_OPENAI_ORGANISATION_ID,
   apiKey: process.env.HYPERSCALE_OPENAI_SECRET_KEY,
 });
 const OpenAI = new OpenAIApi(configuration);
@@ -23,7 +23,6 @@ const s3Client = new AWS.S3({
   apiVersion: "2006-03-01",
   region: process.env.AWS_REGION,
 });
-const https = require("https");
 const SES = new AWS.SES({ apiVersion: "2010-12-01", region: "eu-west-1" });
 const { getHtmlEmailContent } = require("./email.js");
 
@@ -56,10 +55,6 @@ async function getSingleFileFromS3({ bucket, key }) {
 }
 
 async function sendDataToOpenAI({ data, fileName, author }) {
-  console.log("data = ", data);
-  console.log("fileName = ", fileName);
-  console.log("author = ", author);
-
   const content = data.processedPages.map((page) => page.content).join(" ");
 
   const messages = [
@@ -70,8 +65,6 @@ async function sendDataToOpenAI({ data, fileName, author }) {
   const model = "gpt-3.5-turbo";
 
   try {
-    console.log("messages = ", messages);
-
     const response = await OpenAI.createChatCompletion({
       model: model,
       messages: messages,
@@ -81,8 +74,6 @@ async function sendDataToOpenAI({ data, fileName, author }) {
     });
 
     const generatedText = response.data.choices[0].message.content;
-
-    console.log("generatedText = ", generatedText);
 
     const emailParams = {
       Source: `"Hyperscale" <alexmdv1999@gmail.com>`,
@@ -110,7 +101,6 @@ async function sendDataToOpenAI({ data, fileName, author }) {
     }
   } catch (err) {
     console.log("err = ", err);
-    console.log("err.response.data = ", err.response?.data);
   }
 }
 
@@ -155,6 +145,5 @@ exports.handler = async (event) => {
     }
   } catch (err) {
     console.log("err = ", err);
-    console.log("err.response = ", err.response);
   }
 };
