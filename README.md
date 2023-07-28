@@ -1,46 +1,16 @@
-# Getting Started with Create React App
+# README for Hyperscale
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Hyperscale is a project that leverages AWS Amplify, OpenAI GPT 3.5 Turbo, and Amazon Textract to automate the extraction and analysis of information from uploaded documents. The purpose of this application is to simplify and make more efficient the process of extracting text, and to provide valuable and relevant information from the contents of documents.
 
-## Available Scripts
+The problem addressed by this project is the difficulty of quickly and accurately extracting and analyzing information from documents in various formats such as PDF files, scanned documents, or photographs with text. The manual process of reading and interpreting these documents can be laborious and time-consuming, which is why the development of an application that automates this task is necessary.
 
-In the project directory, you can run:
+The objectives of the Hyperscale project are:
 
-### `npm start`
+Implementing a solution for text extraction from documents using Amazon Textract, an AWS service specialized in Optical Character Recognition (OCR). This functionality will allow users to upload documents in different formats and obtain the text contained in them in a digital format that is easy to handle and analyze.
+Integrating OpenAI GPT 3.5 Turbo, one of the most advanced artificial intelligence models, to extract and analyze relevant information from the previously obtained text. The GPT 3.5 Turbo model is trained on a wide variety of data and can provide significant results in various areas of interest.
+Hyperscale serves to streamline the process of extracting and analyzing information from documents, allowing users to access relevant content quickly and efficiently, and to obtain valuable insights. Using AWS Amplify, AWS Lambda, AWS AppSync, Amazon S3, Amazon Cognito, Amazon CloudFormation, Amazon DynamoDB, Amazon SNS, and Amazon API Gateway, a scalable and secure architecture is created for managing the uploading of documents and the extraction of information from them.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This project presents an innovative approach to the automatic management and analysis of documents, using advanced technologies such as AWS Amplify, OpenAI GPT 3.5 Turbo, and Amazon Textract. Hyperscale has the potential to provide efficient solutions in various fields, such as contract analysis, invoice processing, or extraction of information from legal documents.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+*Note*
+Please be aware that some configurations were made directly through the AWS Console. This includes setting environment variables for certain functions and establishing S3 triggers.
