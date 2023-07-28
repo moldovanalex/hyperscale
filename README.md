@@ -12,5 +12,6 @@ Hyperscale serves to streamline the process of extracting and analyzing informat
 
 This project presents an innovative approach to the automatic management and analysis of documents, using advanced technologies such as AWS Amplify, OpenAI GPT 3.5 Turbo, and Amazon Textract. Hyperscale has the potential to provide efficient solutions in various fields, such as contract analysis, invoice processing, or extraction of information from legal documents.
 
-*Note*
+**Note**
+
 Please be aware that some configurations were made directly through the AWS Console. This includes setting environment variables for certain functions and establishing S3 triggers.
